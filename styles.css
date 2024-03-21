@@ -1,0 +1,26 @@
+.container {
+    position: relative;
+  }
+  
+  canvas {
+    display: block;
+    border: 1px solid #ccc;
+    background-image: url("./bg.png"); /* Add a light gray background */
+    cursor: crosshair; /* Change cursor to crosshair when hovering over canvas */
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+    background-image: url("./bg.png");/* Use Bootstrap's primary blue color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darken the button color on hover */
+  }
+  
