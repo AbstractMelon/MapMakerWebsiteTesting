@@ -4,10 +4,7 @@ import { Stage, Layer, Rect } from 'react-konva';
 
 const MapGrid = () => {
   const [gridCells, setGridCells] = useState([]);
-
-  // Function to handle cell click
   const handleCellClick = (index) => {
-    // Implement logic to add map element to cell at index
   };
 
   return (
