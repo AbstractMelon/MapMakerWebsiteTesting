@@ -84,53 +84,57 @@ canvas.addEventListener('wheel', function(event) {
 // Function to export platforms to .boplmap file
 // Function to export platforms to .boplmap file
 // Function to export platforms to .boplmap file
+// Function to export platforms to .boplmap file
 function exportPlatforms() {
-    // Adjust platform data before exporting
-    const adjustedPlatforms = platforms.map(platform => {
-      return {
-        transform: { 
-          x: platform.transform.x / 15, 
-          y: platform.transform.y / 15 
-        },
-        size: { 
-          width: platform.size.width / 15, 
-          height: platform.size.height / 15 
-        },
-        radius: platform.radius,
-        biome: platform.biome,
-        visibility: platform.visibility,
-        AntiLockPlatform: platform.AntiLockPlatform,
-        blank: platform.blank
-      };
-    });
-  
-    const mapData = {
-      version: document.getElementById('version').value,
-      mapName: document.getElementById('mapName').value,
-      description: document.getElementById('description').value,
-      developer: document.getElementById('developer').value,
-      dateCreated: new Date().toISOString().slice(0, 10),
-      mapId: document.getElementById('mapId').value,
-      siteVersion: "0.1",
-      icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
-      platforms: adjustedPlatforms // Use adjusted platform data
+  // Adjust platform data before exporting
+  const adjustedPlatforms = platforms.map(platform => {
+    return {
+      transform: { 
+        x: platform.transform.x / 15, 
+        y: platform.transform.y / 15 
+      },
+      size: { 
+        width: platform.size.width / 15, 
+        height: platform.size.height / 15 
+      },
+      radius: platform.radius,
+      biome: platform.biome,
+      visibility: platform.visibility,
+      AntiLockPlatform: platform.AntiLockPlatform,
+      blank: platform.blank
     };
-  
-    const jsonData = JSON.stringify(mapData, null, 2);
-  
-    // Create a Blob object containing the JSON data
-    const blob = new Blob([jsonData], { type: 'application/json' });
-  
-    // Create a download link for the Blob
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = 'platforms.json'; // Name of the downloaded file
-    link.click();
-  
-    // Clean up
-    window.URL.revokeObjectURL(link.href);
-  }
-  
+  });
+
+  const mapName = document.getElementById('mapName').value;
+
+  const mapData = {
+    version: document.getElementById('version').value,
+    mapName: mapName,
+    description: document.getElementById('description').value,
+    developer: document.getElementById('developer').value,
+    dateCreated: new Date().toISOString().slice(0, 10),
+    mapId: document.getElementById('mapId').value,
+    siteVersion: "0.1",
+    icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
+    platforms: adjustedPlatforms // Use adjusted platform data
+  };
+
+  const jsonData = JSON.stringify(mapData, null, 2);
+
+  // Create a Blob object containing the JSON data
+  const blob = new Blob([jsonData], { type: 'application/json' });
+
+  // Create a download link for the Blob
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = `${mapName}.boplmap`; // Use map name in the download file name
+
+  // Programmatically trigger the click event on the link
+  link.dispatchEvent(new MouseEvent('click'));
+
+  // Clean up
+  window.URL.revokeObjectURL(link.href);
+}
   
   // Event listener for export button click
   exportButton.addEventListener('click', exportPlatforms);
