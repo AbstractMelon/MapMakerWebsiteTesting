@@ -80,7 +80,30 @@ canvas.addEventListener('wheel', function(event) {
 });
 
 // Function to export platforms to .boplmap file
+// Function to export platforms to .boplmap file
+// Function to export platforms to .boplmap file
+// Function to export platforms to .boplmap file
+// Function to export platforms to .boplmap file
 function exportPlatforms() {
+    // Adjust platform data before exporting
+    const adjustedPlatforms = platforms.map(platform => {
+      return {
+        transform: { 
+          x: platform.transform.x / 15, 
+          y: platform.transform.y / 15 
+        },
+        size: { 
+          width: platform.size.width / 15, 
+          height: platform.size.height / 15 
+        },
+        radius: platform.radius,
+        biome: platform.biome,
+        visibility: platform.visibility,
+        AntiLockPlatform: platform.AntiLockPlatform,
+        blank: platform.blank
+      };
+    });
+  
     const mapData = {
       version: document.getElementById('version').value,
       mapName: document.getElementById('mapName').value,
@@ -90,12 +113,24 @@ function exportPlatforms() {
       mapId: document.getElementById('mapId').value,
       siteVersion: "0.1",
       icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
-      platforms: platforms
+      platforms: adjustedPlatforms // Use adjusted platform data
     };
   
     const jsonData = JSON.stringify(mapData, null, 2);
-    console.log(jsonData); // Output JSON to console (you can replace this with actual file download logic)
+  
+    // Create a Blob object containing the JSON data
+    const blob = new Blob([jsonData], { type: 'application/json' });
+  
+    // Create a download link for the Blob
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'platforms.json'; // Name of the downloaded file
+    link.click();
+  
+    // Clean up
+    window.URL.revokeObjectURL(link.href);
   }
+  
   
   // Event listener for export button click
   exportButton.addEventListener('click', exportPlatforms);
