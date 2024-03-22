@@ -1,3 +1,4 @@
+// JavaScript
 const canvas = document.getElementById('gridCanvas');
 const ctx = canvas.getContext('2d');
 const exportButton = document.getElementById('exportButton');
@@ -69,7 +70,7 @@ canvas.addEventListener('wheel', function(event) {
   if (event.deltaY > 0) {
     // Scrolling down, decrease radius
     radius -= 0.1; // Decrease by 0.1
-    if (radius < 0.1) radius = 0.1; // Minimum radius
+    if (radius < 0.1) radius = 0.05; // Minimum radius
   } else {
     // Scrolling up, increase radius
     radius += 0.1; // Increase by 0.1
@@ -80,45 +81,21 @@ canvas.addEventListener('wheel', function(event) {
 
 // Function to export platforms to .boplmap file
 function exportPlatforms() {
-  if (platforms.length === 0) {
-    console.log("No platforms to export.");
-    return;
+    const mapData = {
+      version: document.getElementById('version').value,
+      mapName: document.getElementById('mapName').value,
+      description: document.getElementById('description').value,
+      developer: document.getElementById('developer').value,
+      dateCreated: new Date().toISOString().slice(0, 10),
+      mapId: document.getElementById('mapId').value,
+      siteVersion: "0.1",
+      icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
+      platforms: platforms
+    };
+  
+    const jsonData = JSON.stringify(mapData, null, 2);
+    console.log(jsonData); // Output JSON to console (you can replace this with actual file download logic)
   }
-
-  const mapData = {
-    version: "1.0",
-    mapName: "Boplmap",
-    description: "A Bopl Map",
-    developer: "Abstractmelon",
-    dateCreated: "2024-03-17",
-    mapId: "1",
-    siteVersion: "0.1",
-    icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
-    platforms: platforms
-  };
-
-  // Log Map data to console
-  console.log(mapData);
-
-  // Convert the map data to JSON
-  const jsonData = JSON.stringify(mapData, null, 2);
-
-  // Create a Blob containing the JSON data
-  const blob = new Blob([jsonData], { type: "application/json" });
-
-  // Create a link element
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
   
-  // Set the file name
-  link.download = "boplmap.boplmap";
-  
-  // Append the link to the body
-  document.body.appendChild(link);
-  
-  // Link the click
-  link.click();
-  
-  // Remove the link from the DOM
-  document.body.removeChild(link);
-}
+  // Event listener for export button click
+  exportButton.addEventListener('click', exportPlatforms);

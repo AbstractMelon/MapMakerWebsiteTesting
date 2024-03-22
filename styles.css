@@ -1,30 +1,58 @@
+/* General styles */
+body {
+    background-image: url("./mainbg.png");
+    background-size: cover;
+    background-position-y: center;
+    background-position-x: 1450px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Ensure full viewport height */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
 .container {
-    position: relative;
-  }
-  body {
-    background-color: rgb(41, 41, 41);
-  }
-  
-  canvas {
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Drop shadow effect */
+}
+
+/* Canvas styles */
+canvas {
     display: block;
-    align-self: center;
+    margin: 0 auto;
     border: 1px solid #ccc;
-    background-image: url("./bg.png"); /* Add a light gray background */
-    cursor: crosshair; /* Change cursor to crosshair when hovering over canvas */
-  }
-  
-  button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    font-size: 16px;
-    background-image: url("./bg.png");/* Use Bootstrap's primary blue color */
+    background-image: url("./canvasbg.png");
+    background-size: contain;
+    cursor: crosshair;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+/* Button styles */
+button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background: linear-gradient(to bottom, #4eb5f1 0%, #3898e6 100%); /* Gradient button background */
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3; /* Darken the button color on hover */
-  }
-  
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #3898e6 0%, #4eb5f1 100%); /* Gradient button background on hover */
+    transform: scale(1.05); /* Scale up on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+}
+
+button:active {
+    transform: scale(0.95); /* Scale down when clicked */
+    box-shadow: none; /* Remove shadow when clicked */
+}
