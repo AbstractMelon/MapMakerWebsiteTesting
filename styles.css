@@ -1,9 +1,13 @@
 .container {
     position: relative;
   }
+  body {
+    background-color: rgb(41, 41, 41);
+  }
   
   canvas {
     display: block;
+    align-self: center;
     border: 1px solid #ccc;
     background-image: url("./bg.png"); /* Add a light gray background */
     cursor: crosshair; /* Change cursor to crosshair when hovering over canvas */
