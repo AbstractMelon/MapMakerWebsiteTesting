@@ -1,27 +1,25 @@
-/* General styles */
 body {
     background-image: url("./mainbg.png");
     background-size: cover;
     background-position-y: center;
     background-position-x: 1450px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     margin: 0;
     padding: 0;
-    height: 100vh; /* Ensure full viewport height */
+    height: 100vh; 
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    justify-content: center; 
+    align-items: center; 
 }
 
 .container {
     max-width: 800px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    background-color: rgba(255, 255, 255, 0.8); 
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Drop shadow effect */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
 }
 
-/* Canvas styles */
 canvas {
     display: block;
     margin: 0 auto;
@@ -33,7 +31,6 @@ canvas {
     border-radius: 5px;
 }
 
-/* Button styles */
 button {
     margin-top: 20px;
     padding: 15px 30px;
@@ -47,14 +44,14 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(to bottom, #3898e6 0%, #4eb5f1 100%); /* Gradient button background on hover */
-    transform: scale(1.05); /* Scale up on hover */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+    background: linear-gradient(to bottom, #3898e6 0%, #4eb5f1 100%); 
+    transform: scale(1.05); 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
 }
 
 button:active {
-    transform: scale(0.95); /* Scale down when clicked */
-    box-shadow: none; /* Remove shadow when clicked */
+    transform: scale(0.95); 
+    box-shadow: none; 
 }
 h1 {
     text-align: center;

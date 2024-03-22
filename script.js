@@ -3,12 +3,12 @@ const canvas = document.getElementById('gridCanvas');
 const ctx = canvas.getContext('2d');
 const exportButton = document.getElementById('exportButton');
 
-let platforms = [];
-let isDrawing = false;
+let platforms = []; // List the platforms
+let isDrawing = false; // No drawing on load
 let startX, startY, currentX, currentY;
 let radius = 0.5; // Default radius
 
-// Function to draw a platform (cube) on the canvas
+// Epic math stuff
 function drawCube(startX, startY, endX, endY, radius) {
   const width = endX - startX;
   const height = endY - startY;
@@ -28,7 +28,7 @@ function drawCube(startX, startY, endX, endY, radius) {
   ctx.fill();
 }
 
-// Event listener to handle mouse down and start drawing
+// Make Draw
 canvas.addEventListener('mousedown', function(event) {
   isDrawing = true;
   startX = event.clientX - canvas.getBoundingClientRect().left;
@@ -40,9 +40,9 @@ canvas.addEventListener('mousemove', function(event) {
   if (!isDrawing) return;
   currentX = event.clientX - canvas.getBoundingClientRect().left;
   currentY = event.clientY - canvas.getBoundingClientRect().top;
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas cuz E
 
-  // Redraw previous platforms
+  // Remake the last ones so no clear
   for (const platform of platforms) {
     drawCube(platform.transform.x, platform.transform.y, platform.transform.x + platform.size.width, platform.transform.y + platform.size.height, platform.radius);
   }
@@ -50,7 +50,7 @@ canvas.addEventListener('mousemove', function(event) {
   drawCube(startX, startY, currentX, currentY, radius);
 });
 
-// Event listener to handle mouse up and stop drawing
+// Mouse Mousing?
 canvas.addEventListener('mouseup', function(event) {
   if (!isDrawing) return;
   isDrawing = false;
@@ -76,7 +76,7 @@ canvas.addEventListener('wheel', function(event) {
     radius += 0.1; // Increase by 0.1
     if (radius > 1) radius = 1; // Maximum radius
   }
-  event.preventDefault(); // Prevent default scroll behavior
+  event.preventDefault(); // Prevent scrolling
 });
 
 // Function to export platforms to .boplmap file
@@ -116,7 +116,7 @@ function exportPlatforms() {
     mapId: document.getElementById('mapId').value,
     siteVersion: "0.1",
     icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
-    platforms: adjustedPlatforms // Use adjusted platform data
+    platforms: adjustedPlatforms
   };
 
   const jsonData = JSON.stringify(mapData, null, 2);
@@ -127,7 +127,7 @@ function exportPlatforms() {
   // Create a download link for the Blob
   const link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
-  link.download = `${mapName}.boplmap`; // Use map name in the download file name
+  link.download = `${mapName}.boplmap`;
 
   // Programmatically trigger the click event on the link
   link.dispatchEvent(new MouseEvent('click'));
