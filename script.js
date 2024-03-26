@@ -114,7 +114,7 @@ function exportPlatforms() {
     developer: document.getElementById('developer').value,
     dateCreated: new Date().toISOString().slice(0, 10),
     mapId: document.getElementById('mapId').value,
-    siteVersion: "0.1",
+    siteVersion: "0.3",
     icon: "https://raw.githubusercontent/abstractmelon/boplmapmaker/main/images/icon.jpeg",
     platforms: adjustedPlatforms
   };
