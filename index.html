@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <div class="header">
+    <h1>MAP MAKER!</h1>
+  </div>  
   <div id="exportModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeExportModal()">&times;</span>
@@ -21,12 +24,20 @@
       <input type="text" id="developerInput">
       <label for="mapId">Map ID:</label>
       <input type="text" id="mapIdInput">
-      <button id="confirmExport">Confirm</button>
+      <button id="confirmExport">Export</button>
       <button id="cancelExport">Cancel</button>
     </div>
   </div>
-  <canvas id="gridCanvas" width="1000" height="600"></canvas>
+  <canvas id="gridCanvas" width="1100" height="550"></canvas>
   <button id="exportButton">Export Map</button>
+  <!-- <button id="credits" class="credits">Credits!</button> -->
+  <div id="credits" class="credits">
+    <h1>Credits!</h1>
+    <il>
+      <li>Lead Dev: Melon</li>
+      <li>Canvas Help: Justsayzac</li>
+    </il>
+  </div>
 
   <script src="./scripts/mapbuilder.js"></script>
 </body>

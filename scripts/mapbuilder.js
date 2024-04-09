@@ -19,13 +19,14 @@ function drawRoundedRectangle(x, y, width, height, radius) {
 }
 
 function drawPlatforms() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (const platform of platforms) {
     drawRoundedRectangle(
       platform.transform.x,
       platform.transform.y,
       platform.size.width,
       platform.size.height,
-      platform.radius
+      platform.radius,
     );
   }
 }
@@ -124,11 +125,11 @@ function openExportModal() {
   const modal = document.getElementById('exportModal');
   modal.style.display = 'block';
 
-  document.getElementById('mapNameInput').value = '';
-  document.getElementById('versionInput').value = '';
-  document.getElementById('descriptionInput').value = '';
-  document.getElementById('developerInput').value = '';
-  document.getElementById('mapIdInput').value = '';
+  document.getElementById('mapNameInput').value = 'boplmap';
+  document.getElementById('versionInput').value = '1.0.0';
+  document.getElementById('descriptionInput').value = 'Epic bopl map';
+  document.getElementById('developerInput').value = 'Your name';
+  document.getElementById('mapIdInput').value = '0';
 }
 
 function closeExportModal() {
