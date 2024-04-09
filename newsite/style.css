@@ -1,0 +1,22 @@
+#mapCanvas {
+    width: 800px;
+    height: 600px;
+    color: rgb(59, 59, 59);
+    border: 1px solid black;
+}
+  
+.platform {
+    position: absolute;
+    color: rgb(63, 161, 241)
+}
+  
+  
+  #exportButton {
+    margin-top: 20px;
+  }
+
+body {
+    background-image: url(./canvasbg.png);
+    background-size: contain;
+    overflow: hidden;
+}
