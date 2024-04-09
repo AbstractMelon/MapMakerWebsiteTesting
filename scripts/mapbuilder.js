@@ -60,14 +60,12 @@ canvas.addEventListener('mousedown', function(event) {
 canvas.addEventListener('mousemove', function(event) {
   if (!isDrawing) return;
   const { x, y } = getMousePosition(event);
-  currentX = x;
-  currentY = y;
   drawPlatforms();
   drawRoundedRectangle(
     startX * aspectRatio,
-    startY * aspectRatio,
-    (currentX - startX) * aspectRatio,
-    (currentY - startY) * aspectRatio,
+    startY * aspectRatio, 
+    (x - startX) * aspectRatio, 
+    (y - startY) * aspectRatio, 
     radius * aspectRatio
   );
 });
