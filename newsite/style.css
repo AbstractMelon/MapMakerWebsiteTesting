@@ -1,22 +1,101 @@
-#mapCanvas {
-    width: 800px;
-    height: 600px;
-    color: rgb(59, 59, 59);
-    border: 1px solid black;
-}
-  
-.platform {
-    position: absolute;
-    color: rgb(63, 161, 241)
-}
-  
-  
-  #exportButton {
-    margin-top: 20px;
-  }
-
 body {
-    background-image: url(./canvasbg.png);
-    background-size: contain;
-    overflow: hidden;
+  background-image: url(./canvasbg.png);
+}
+
+#gridCanvas {
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+.platform {
+  position: absolute;
+  background-color: rgba(63, 161, 241, 0.5); /* Semi-transparent blue */
+}
+
+#exportButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4caf50; /* Green button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#exportButton:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+#exportModal {
+  display: none; /* Hide modal by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Additional Styling for the Form Inputs */
+
+label {
+  margin-top: 10px;
+  display: block;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Styling for Cancel and Confirm Buttons in the Modal */
+
+#cancelExport,
+#confirmExport {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #f44336; /* Red button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#cancelExport:hover,
+#confirmExport:hover {
+  background-color: #d32f2f; /* Darker red on hover */
 }

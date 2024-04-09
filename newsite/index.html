@@ -7,24 +7,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="exportModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onclick="closeExportModal()">&times;</span>
-          <h2>Export Map</h2>
-          <label for="mapNameInput">Map Name:</label>
-          <input type="text" id="mapNameInput">
-          <label for="versionInput">Version:</label>
-          <input type="text" id="versionInput">
-          <label for="descriptionInput">Description:</label>
-          <input type="text" id="descriptionInput">
-          <label for="developerInput">Developer:</label>
-          <input type="text" id="developerInput">
-          <label for="mapIdInput">Map ID:</label>
-          <input type="text" id="mapIdInput">
-          <button id="confirmExport">Confirm</button>
-          <button id="cancelExport">Cancel</button>
-        </div>
-      </div>      
+  <div id="exportModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeExportModal()">&times;</span>
+      <h2>Export Map</h2>
+      <label for="mapName">Map Name:</label>
+      <input type="text" id="mapNameInput">
+      <label for="version">Version:</label>
+      <input type="text" id="versionInput">
+      <label for="description">Description:</label>
+      <input type="text" id="descriptionInput">
+      <label for="developer">Developer:</label>
+      <input type="text" id="developerInput">
+      <label for="mapId">Map ID:</label>
+      <input type="text" id="mapIdInput">
+      <button id="confirmExport">Confirm</button>
+      <button id="cancelExport">Cancel</button>
+    </div>
+  </div>
   <canvas id="gridCanvas" width="800" height="600"></canvas>
   <button id="exportButton">Export Map</button>
 
