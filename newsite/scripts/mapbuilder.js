@@ -19,14 +19,13 @@ function drawRoundedRectangle(x, y, width, height, radius) {
 }
 
 function drawPlatforms() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (const platform of platforms) {
     drawRoundedRectangle(
-      platform.transform.x * aspectRatio,
-      platform.transform.y * aspectRatio,
-      platform.size.width * aspectRatio,
-      platform.size.height * aspectRatio,
-      platform.radius * aspectRatio
+      platform.transform.x,
+      platform.transform.y,
+      platform.size.width,
+      platform.size.height,
+      platform.radius
     );
   }
 }
