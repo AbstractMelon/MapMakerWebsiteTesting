@@ -128,6 +128,46 @@ function exportPlatforms() {
     window.URL.revokeObjectURL(link.href);
   }
   
-
+  function openExportModal() {
+    // Show the export modal
+    const modal = document.getElementById('exportModal');
+    modal.style.display = 'block';
+  
+    // Populate input fields with current values
+    document.getElementById('mapNameInput').value = document.getElementById('mapName').value;
+    document.getElementById('versionInput').value = document.getElementById('version').value;
+    document.getElementById('descriptionInput').value = document.getElementById('description').value;
+    document.getElementById('developerInput').value = document.getElementById('developer').value;
+    document.getElementById('mapIdInput').value = document.getElementById('mapId').value;
+  }
+  
+  // Function to close the export modal
+  function closeExportModal() {
+    // Hide the export modal
+    const modal = document.getElementById('exportModal');
+    modal.style.display = 'none';
+  }
+  
+  // Event listener for export button click
+  exportButton.addEventListener('click', openExportModal);
+  
+  // Event listener for cancel button in export modal
+  document.getElementById('cancelExport').addEventListener('click', closeExportModal);
+  
+  // Event listener for confirm button in export modal
+  document.getElementById('confirmExport').addEventListener('click', function() {
+    // Update map details with values from input fields
+    document.getElementById('mapName').value = document.getElementById('mapNameInput').value;
+    document.getElementById('version').value = document.getElementById('versionInput').value;
+    document.getElementById('description').value = document.getElementById('descriptionInput').value;
+    document.getElementById('developer').value = document.getElementById('developerInput').value;
+    document.getElementById('mapId').value = document.getElementById('mapIdInput').value;
+  
+    // Export platforms
+    exportPlatforms();
+  
+    // Close the export modal
+    closeExportModal();
+  });
 // Event listener for export button click
 exportButton.addEventListener('click', exportPlatforms);
