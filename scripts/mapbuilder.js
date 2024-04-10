@@ -1,14 +1,19 @@
 const canvas = document.getElementById('gridCanvas');
 const ctx = canvas.getContext('2d');
 const exportButton = document.getElementById('exportButton');
+const drawRectangleButton = document.getElementById('drawRectangleButton');
+const drawCircleButton = document.getElementById('drawCircleButton');
+const clearCanvasButton = document.getElementById('clearCanvasButton');
 
 let platforms = [];
 let isDrawing = false;
 let radius = 0.5;
+let isDrawingRectangle = true;
 const aspectRatio = 194.87 / 66;
 
 function drawRoundedRectangle(x, y, width, height, radius) {
   ctx.beginPath();
+  ctx.lineWidth = radius * 1; 
   ctx.moveTo(x + radius, y);
   ctx.arcTo(x + width, y, x + width, y + height, radius);
   ctx.arcTo(x + width, y + height, x, y + height, radius);
@@ -18,16 +23,36 @@ function drawRoundedRectangle(x, y, width, height, radius) {
   ctx.fill();
 }
 
+function drawCircle(x, y, radius) {
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, 2 * Math.PI);
+  ctx.closePath();
+  ctx.fill();
+}
+
+clearCanvasButton.addEventListener('click', function() {
+  platforms = []; // Clear the platforms array
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+});
+
 function drawPlatforms() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (const platform of platforms) {
-    drawRoundedRectangle(
-      platform.transform.x,
-      platform.transform.y,
-      platform.size.width,
-      platform.size.height,
-      platform.radius,
-    );
+    if (platform.shape === 'rectangle') {
+      drawRoundedRectangle(
+        platform.transform.x,
+        platform.transform.y,
+        platform.size.width,
+        platform.size.height,
+        platform.radius,
+      );
+    } else if (platform.shape === 'circle') {
+      drawCircle(
+        platform.transform.x + platform.size.width / 2,
+        platform.transform.y + platform.size.height / 2,
+        platform.size.width / 2
+      );
+    }
   }
 }
 
@@ -39,7 +64,8 @@ function addPlatform(x, y, width, height) {
     biome: "Plain",
     visibility: true,
     AntiLockPlatform: false,
-    blank: false
+    blank: false,
+    shape: isDrawingRectangle ? 'rectangle' : 'circle'
   });
 }
 
@@ -62,13 +88,20 @@ canvas.addEventListener('mousemove', function(event) {
   if (!isDrawing) return;
   const { x, y } = getMousePosition(event);
   drawPlatforms();
-  drawRoundedRectangle(
-    startX * aspectRatio,
-    startY * aspectRatio, 
-    (x - startX) * aspectRatio, 
-    (y - startY) * aspectRatio, 
-    radius * aspectRatio
-  );
+  if (isDrawingRectangle) {
+    drawRoundedRectangle(
+      startX * aspectRatio,
+      startY * aspectRatio, 
+      (x - startX) * aspectRatio, 
+      (y - startY) * aspectRatio, 
+      radius * aspectRatio
+    );
+  } else {
+    const centerX = (startX + x) / 2 * aspectRatio;
+    const centerY = (startY + y) / 2 * aspectRatio;
+    const radius = Math.sqrt(Math.pow(x - startX, 2) + Math.pow(y - startY, 2)) / 2 * aspectRatio;
+    drawCircle(centerX, centerY, radius);
+  }
 });
 
 canvas.addEventListener('mouseup', function(event) {
@@ -77,6 +110,16 @@ canvas.addEventListener('mouseup', function(event) {
   const { x, y } = getMousePosition(event);
   const width = (x - startX) * aspectRatio;
   const height = (y - startY) * aspectRatio;
+  
+  const minWidth = 10; 
+  const minHeight = 10; 
+  
+  if (Math.abs(width) < minWidth || Math.abs(height) < minHeight) {
+    // alert('Platform size must be at least ' + minWidth + 'x' + minHeight);
+    drawPlatforms(); 
+    return;
+  }
+  
   addPlatform(startX * aspectRatio, startY * aspectRatio, width, height);
   drawPlatforms();
 });
@@ -89,12 +132,25 @@ canvas.addEventListener('wheel', function(event) {
     if (radius < 0.1) radius = 0.05;
   } else {
     radius += 0.1;
-    if (radius > 2) radius = 2;
+    if (radius > 1) radius = 1;
   }
 });
 
 function exportPlatforms() {
   const mapName = document.getElementById('mapNameInput').value;
+
+  const formattedPlatforms = platforms.map(platform => ({
+    ...platform,
+    transform: {
+      x: platform.transform.x.toFixed(1),
+      y: platform.transform.y.toFixed(1)
+    },
+    size: {
+      width: platform.size.width.toFixed(1),
+      height: platform.size.height.toFixed(1)
+    },
+    radius: platform.radius.toFixed(1)
+  }));
 
   const mapData = {
     version: document.getElementById('versionInput').value,
@@ -105,7 +161,7 @@ function exportPlatforms() {
     mapId: document.getElementById('mapIdInput').value,
     siteVersion: "0.3",
     icon: "https://raw.githubusercontent.com/abstractmelon/boplmapmaker/main/images/icon.jpeg",
-    platforms: platforms
+    platforms: formattedPlatforms
   };
 
   const jsonData = JSON.stringify(mapData, null, 2);
@@ -144,4 +200,12 @@ document.getElementById('cancelExport').addEventListener('click', closeExportMod
 document.getElementById('confirmExport').addEventListener('click', function() {
   exportPlatforms();
   closeExportModal();
+});
+
+drawRectangleButton.addEventListener('click', function() {
+  isDrawingRectangle = true;
+});
+
+drawCircleButton.addEventListener('click', function() {
+  isDrawingRectangle = false;
 });
