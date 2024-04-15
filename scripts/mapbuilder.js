@@ -142,18 +142,18 @@ canvas.addEventListener('wheel', function(event) {
 
 function exportPlatforms() {
   const mapName = document.getElementById('mapNameInput').value;
-
+  
   const formattedPlatforms = platforms.map(platform => ({
     ...platform,
     transform: {
-      x: platform.transform.x.toFixed(1),
-      y: platform.transform.y.toFixed(1)
+      x: (platform.transform.x / aspectRatio).toFixed(1),
+      y: (platform.transform.y / aspectRatio).toFixed(1)
     },
     size: {
-      width: platform.size.width.toFixed(1),
-      height: platform.size.height.toFixed(1)
+      width: (platform.size.width / aspectRatio).toFixed(1),
+      height: (platform.size.height / aspectRatio).toFixed(1)
     },
-    radius: platform.radius.toFixed(1)
+    radius: (platform.radius / aspectRatio).toFixed(1)
   }));
 
   const mapData = {
