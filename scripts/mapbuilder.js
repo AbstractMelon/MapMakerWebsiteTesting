@@ -11,6 +11,9 @@ let radius = 0.5;
 let isDrawingRectangle = true;
 const aspectRatio = 194.87 / 66;
 
+const mapx = 194.87
+const mapy = 66
+
 function drawRoundedRectangle(x, y, width, height, radius) {
   ctx.beginPath();
   ctx.lineWidth = radius * 1; 
@@ -40,17 +43,17 @@ function drawPlatforms() {
   for (const platform of platforms) {
     if (platform.shape === 'rectangle') {
       drawRoundedRectangle(
-        platform.transform.x,
-        platform.transform.y,
-        platform.size.width,
-        platform.size.height,
-        platform.radius,
+        platform.transform.x * aspectRatio,
+        platform.transform.y * aspectRatio,
+        platform.size.width * aspectRatio,
+        platform.size.height * aspectRatio,
+        platform.radius * aspectRatio
       );
     } else if (platform.shape === 'circle') {
       drawCircle(
-        platform.transform.x + platform.size.width / 2,
-        platform.transform.y + platform.size.height / 2,
-        platform.size.width / 2
+        (platform.transform.x + platform.size.width / 2) * aspectRatio,
+        (platform.transform.y + platform.size.height / 2) * aspectRatio,
+        (platform.size.width / 2) * aspectRatio
       );
     }
   }
@@ -58,9 +61,9 @@ function drawPlatforms() {
 
 function addPlatform(x, y, width, height) {
   platforms.push({
-    transform: { x, y },
-    size: { width, height },
-    radius,
+    transform: { x: x / aspectRatio, y: y / aspectRatio },
+    size: { width: width / aspectRatio, height: height / aspectRatio },
+    radius: radius / aspectRatio,
     biome: "Plain",
     visibility: true,
     AntiLockPlatform: false,
@@ -68,6 +71,7 @@ function addPlatform(x, y, width, height) {
     shape: isDrawingRectangle ? 'rectangle' : 'circle'
   });
 }
+
 
 function getMousePosition(event) {
   const rect = canvas.getBoundingClientRect();
