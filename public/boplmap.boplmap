@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "mapName": "boplmap",
+  "description": "Epic bopl map",
+  "developer": "Your name",
+  "dateCreated": "2024-04-11",
+  "mapId": "0",
+  "siteVersion": "0.3",
+  "icon": "https://raw.githubusercontent.com/abstractmelon/boplmapmaker/main/images/icon.jpeg",
+  "platforms": [
+    {
+      "IsPresetPatform": false,
+      "transform": {
+        "x": "40",
+        "y": "-10"
+      },
+
+      "comment": "rotation is in degrees",
+
+      "rotation": "0",
+
+      "comment2": "ScaleFactor and PresetPlatformName only affects things when IsPresetPatform is true.",
+      "ScaleFactor": "1",
+
+      "comment3": "valid values for PresetPlatformName are {asteroid l, asteroid m, asteroid s, asteroid xl, big_ice, bigroundedrectangle, circle, detailedrectangle, ice, icebig, icesmall, longroundedrectangle, longsnowcapsule, smallcapsule, snowcircle}",
+      "PresetPlatformName": "longroundedrectangle",
+
+      "comment4": "everything below until comment12 only works when IsPresetPatform is false.",
+      "comment5": "size is odd in that it is messured as the distance from the center of the platform to 1 edge.",
+      "size": {
+        "width": "5",
+        "height": "5"
+      },
+
+      "comment6": "radius + width*2 is the true width in bopl units. height is the same just replacing width with height.",
+      "radius": "1",
+
+      "comment7": "the shape value only determens if it should calculate the mass as if it was a circle or not. if the value is `circle` and custom mass is false it calculates the mass as if it was a circle.",
+      "shape": "rectangle",
+      "UseCustomMass": true,
+      "CustomMass": "1",
+
+      "comment8": "the Custom Texture must be ziped inside of the map. PixelsPerUnit should normaly be the value of the longest side lenght in pixles of the image.",
+      "UseCustomTexture": true,
+      "CustomTextureName": "test100x100.png",
+      "PixelsPerUnit": "100",
+      "Red": "1",
+      "Green": "1",
+      "Blue": "1",
+      "Opacity": "1",
+
+      "comment9": "if UseCustomDrillColorAndBolderTexture is true you must put both the DrillColor and the BolderTexture not just one",
+      
+      "UseCustomDrillColorAndBolderTexture": true,
+      "comment10": "color values are in the order Red, Blue, Green, Opacity",
+      "CustomDrillColors":
+      {
+        "ColorDark": [1,0,0,1],
+        "ColorMedium": [0,1,0,1],
+        "ColorLight": [0,0,1,1]
+      },
+      "CustomBoulderTexture": "test100x100.png",
+      "BoulderPixelsPerUnit": "33",
+      "BoulderSmokeColor": [1,0,0,1],
+      "comment11": "have slime trails and drill marks. recomend a big custom Texture if this is on.",
+      "UseSlimeCam": true,
+      "comment12": "below affects both PresetPatforms and non-PresetPatforms.",
+      "comment13": "valid values for PathType are {None,AntiLockPlatform,VectorFieldPlatform} None means no path. AntiLockPlatform is custom path. VectorFieldPlatform is orbit path",
+      "PathType": "AntiLockPlatform",
+      "OrbitForce": "1000",
+      "OrbitPath": [[40,-10],[30,-10]],
+      "DelaySeconds": "3",
+      "isBird": true
+
+    },
+    {
+      "IsPresetPatform": true,
+      "transform": {
+        "x": "-18",
+        "y": "20"
+      },
+      "rotation": "90",
+      "ScaleFactor": "0.5",
+      "PresetPlatformName": "longsnowcapsule",
+      "size": {
+        "width": "0.1",
+        "height": "0.1"
+      },
+      "radius": "1",
+      "biome": "Plain",
+      "visibility": true,
+      "AntiLockPlatform": false,
+      "blank": false,
+      "shape": "circle",
+      "UseCustomMass": false,
+      "CustomMass": "1",
+      "UseCustomTexture": false,
+      "CustomTextureName": "test.png",
+      "PixelsPerUnit": "1",
+      "Red": "1",
+      "Green": "1",
+      "Blue": "1",
+      "Opacity": "1",
+      "PathType": "AntiLockPlatform",
+      "OrbitForce": "1000",
+      "OrbitPath": [[-12,20],[10,20],[10,0],[-12,0]],
+      "DelaySeconds": "2",
+      "isBird": false
+    }
+  ]
+}
