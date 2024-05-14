@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Konva Map Editor</title>
+  <script src="https://cdn.jsdelivr.net/npm/konva@8.2.0/konva.min.js"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <input type="file" id="fileInput" accept="image/*">
+  <button onclick="loadImage()">Load Image</button>
+  <button onclick="exportMap()">Export Map</button>
+
+  <div id="presetImages"></div>
+
+  <script>
+    var stage = new Konva.Stage({
+      container: 'container',
+      width: window.innerWidth,
+      height: window.innerHeight - 50
+    });
+
+    var layer = new Konva.Layer();
+    stage.add(layer);
+
+    var toolbarLayer = new Konva.Layer();
+    stage.add(toolbarLayer);
+
+    var platforms = [];
+    var currentImage;
+
+    function addPlatform(x, y, image) {
+      var platform = new Konva.Image({
+        x: x,
+        y: y,
+        image: image,
+        draggable: true,
+        rotationSnaps: [0, 90, 180, 270],
+        rotationSnapTolerance: 45
+      });
+
+      layer.add(platform);
+      platforms.push(platform);
+
+      var tr = new Konva.Transformer({
+        nodes: [platform],
+        keepRatio: true,
+        boundBoxFunc: function(oldBox, newBox) {
+          var stageBox = stage.container().getBoundingClientRect();
+          var maxX = stageBox.right - stageBox.left;
+          var maxY = stageBox.bottom - stageBox.top;
+          newBox.width = Math.max(30, Math.min(maxX, newBox.width));
+          newBox.height = Math.max(30, Math.min(maxY, newBox.height));
+          return newBox;
+        }
+      });
+
+      layer.add(tr);
+      layer.draw();
+
+      platform.on('transform', function() {
+        var scale = platform.scaleX();
+        platform.scaleY(scale);
+      });
+    }
+
+    function loadPresetImage(src) {
+      var img = new Image();
+      img.onload = function() {
+        currentImage = img;
+        addPlatform(100, 100, img);
+      };
+      img.src = src;
+    }
+
+    function loadImage() {
+      var fileInput = document.getElementById('fileInput');
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function(event) {
+        var img = new Image();
+        img.onload = function() {
+          currentImage = img;
+          addPlatform(100, 100, img);
+        };
+        img.src = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function exportMap() {
+      var mapData = {
+        version: "1.0.0",
+        mapName: "boplmap",
+        description: "Epic bopl map",
+        developer: "Your name",
+        dateCreated: "2024-04-11",
+        mapId: "0",
+        siteVersion: "0.3",
+        icon: "https://raw.githubusercontent.com/abstractmelon/boplmapmaker/main/images/icon.jpeg",
+        platforms: []
+      };
+
+      platforms.forEach(function(platform) {
+        var platformData = {
+          IsPresetPatform: false,
+          transform: {
+            x: platform.x(),
+            y: platform.y()
+          },
+          rotation: platform.rotation(),
+          size: {
+            width: platform.width(),
+            height: platform.height()
+          },
+        };
+
+        mapData.platforms.push(platformData);
+      });
+
+      var json = JSON.stringify(mapData, null, 2);
+      console.log(json);
+    }
+
+    fetch('/images')
+  .then(response => response.json())
+  .then(images => {
+    var presetImagesDiv = document.getElementById('presetImages');
+    images.forEach(image => {
+      console.log(image)
+      var img = document.createElement('img');
+      img.src = '/images/' + image;
+      img.onclick = function() {
+        loadPresetImage('/images/' + image);
+      };
+      presetImagesDiv.appendChild(img);
+    });
+  })
+  .catch(error => console.error('Error fetching images:', error));
+  </script>
+</body>
+</html>
